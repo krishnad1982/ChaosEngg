@@ -11,6 +11,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
+// Chaos Engg Config Start
 var httpClientBuilder = builder.Services.AddHttpClient<ITodosClient, TodosClient>(client =>
     client.BaseAddress = new Uri("https://jsonplaceholder.typicode.com"));
 httpClientBuilder.AddResilienceHandler("chaos", pipelineBuilder =>
@@ -23,6 +25,8 @@ httpClientBuilder.AddResilienceHandler("chaos", pipelineBuilder =>
         .AddChaosFault(injectionRate, () => new InvalidOperationException("Chaos strategy injection!")) // Inject faults to simulate system errors
         .AddChaosOutcome(injectionRate, () => new HttpResponseMessage(System.Net.HttpStatusCode.InternalServerError)); // Simulate server errors
 });
+// Chaos Engg Config End
+
 
 var app = builder.Build();
 
