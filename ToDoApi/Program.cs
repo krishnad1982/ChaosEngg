@@ -17,7 +17,7 @@ var httpClientBuilder = builder.Services.AddHttpClient<ITodosClient, TodosClient
     client.BaseAddress = new Uri("https://jsonplaceholder.typicode.com"));
 httpClientBuilder.AddResilienceHandler("chaos", pipelineBuilder =>
 {
-    // Set the chaos injection rate to 5%
+    // Set the chaos injection rate to 50%
     const double injectionRate = 0.5;
 
     pipelineBuilder
